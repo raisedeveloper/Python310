@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>설문조사 이력</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>설문조사 이력</h1>
+        
+        <nav class="nav-menu">
+            <a href="/">설문 조사</a>
+            <a href="/history" class="active">이력 보기</a>
+        </nav>
+        <form action="/delete" method="post">
+        {% if records %}
+            <table class="history-table">
+                <thead>
+                    <tr>
+                        <th>삭제여부</th>
+                        <th>번호</th>
+                        <th>날짜</th>
+                        <th>성별</th>
+                        <th>나이</th>
+                        <th>환경 등급</th>
+                        <th>의견</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for record in records %}
+                    <tr>
+                        <td><input type="checkbox" name="no" value="{{ record.no }}"></td>
+                        <td>{{ record.no }}</td>
+                        <td>{{ record.created_at.strftime('%Y-%m-%d %H:%M') }}</td>
+                        <td>{% if record.gender == 1 %}남{% elif record.gender == 2 %}여{% else %}{{ record.gender }}{% endif %}</td>
+                        <td>{{ record.age }}</td>
+                        <td>{{ record.score }}</td>
+                        <td>{{ record.content }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <div class="no-data">
+                <p>저장된 설문 기록이 없습니다.</p>
+            </div>
+        {% endif %}
+        
+        <a href="/" class="back-btn">설문하러 가기</a>
+        <button type="submit" class="del-btn">삭제하기</button>
+
+    </form>
+    </div>
+</body>
+</html>
