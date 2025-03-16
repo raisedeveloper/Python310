@@ -6,10 +6,10 @@ class Database:
         self.connection = None
         try:
             self.connection = pymysql.connect(
-                host='192.168.0.97',
+                host='localhost',
                 database='test',  # test 데이터베이스 사용
                 user='root',
-                password='8948864a',  # mariadb 설치 당시의 패스워드, 실제 환경에서는 보안을 위해 환경변수 등을 사용
+                password='dhforkwk96$',  # mariadb 설치 당시의 패스워드, 실제 환경에서는 보안을 위해 환경변수 등을 사용
                 charset='utf8mb4',
                 cursorclass=pymysql.cursors.DictCursor
             )
